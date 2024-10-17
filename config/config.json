@@ -1,0 +1,26 @@
+
+{
+    "development": {
+      "username": "dep1992",
+      "password": "Year2024",
+      "database": "payroll",
+      "host": "192.168.29.250",
+      "dialect": "mysql",
+      "login" : false
+    },
+    "test": {
+      "username": "",
+      "password": "",
+      "database": "",
+      "host": "",
+      "dialect": "mysql"
+    },
+    "production": {
+      "username": "",
+      "password": "",
+      "database": "",
+      "host": "l",
+      "dialect": "mysql"
+    }
+  }
+  
