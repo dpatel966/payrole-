@@ -4,6 +4,7 @@ const ApiResponse = require("./utils/apiResponse");
 const router =  express.Router();
 
 
+
 router.get("/list", async(req,res)=>{
     try{
          const user =  await User.findAll()
@@ -17,7 +18,7 @@ router.get("/list", async(req,res)=>{
      res.json(new ApiResponse(false , err, "user data not retrieve"))
      
     }
-})
+});
 
 router.post("/add", async(req, res)=>{
     try{
@@ -31,7 +32,7 @@ router.post("/add", async(req, res)=>{
         const error =  errorHendlar(err);
         res.json(new ApiResponse(false , err, "user data not saved "))
     }
-})
+});
 
 router.put("/update/:id",async(req,res)=>{
     try{
@@ -44,7 +45,8 @@ router.put("/update/:id",async(req,res)=>{
         const error = errorHendlar(err);
         res.json(new ApiResponse(false , err, "user data  not updated "))
     }
-})
+});
+
 router.delete("/delete/:id", async(req, res)=>{
     try{
         const user_id =  req.params.id;

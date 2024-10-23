@@ -11,7 +11,7 @@ module.exports = (sequelize,Datatype)=>{
 
 
     Object_user_role_perm.init({
-        perrm_sys_object_id:{
+        perm_sys_object_id:{
             type:Datatype.INTEGER,
             primaryKey:true
 

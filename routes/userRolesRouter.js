@@ -33,7 +33,6 @@ res.json(new Apiresponse(false , err, "user role not added"))
     }
 });
 
-
 router.put("/update/:id",async(req,res)=>{
     const user_role_id =  req.params.id
 try{
