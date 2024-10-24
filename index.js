@@ -2,10 +2,11 @@ const express = require("express");
 require('dotenv').config();
 const server = express();
 const  apiRouter =  require("./routes/apiRouter")
+const filleupload = require('express-fileupload')
 
 
 
-
+server.use(filleupload())
 server.use(express.json());
 server.use(express.urlencoded({ extended: false }));
 

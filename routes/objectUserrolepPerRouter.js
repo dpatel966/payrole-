@@ -14,6 +14,7 @@ router.get("/list",async(req,res)=>{
         res.json(new ApiResponse(false , err, "Data Not Found "))
     }
 });
+
 router.post("/add", async(req,res)=>{
     try{
 
@@ -25,9 +26,10 @@ router.post("/add", async(req,res)=>{
         res.json(new ApiResponse(true,err, "Data not saved ")) 
     }
 });
+
  router.put("/update/:id",async(req,res)=>{
     try{
-         const perrm_sys_object_id= req.params.id;
+        const perrm_sys_object_id= req.params.id;
         const object_user = await Object_user_role_perm.update(req.body,{where:{perrm_sys_object_id}});
         res.json(new ApiResponse(true ,object_user,"Data Upated successfully "))
 
@@ -36,5 +38,6 @@ router.post("/add", async(req,res)=>{
        const error = errorHendlar(err);
        res.json(new ApiResponse(false,err, "Data not update "))
     }
- })
+ });
+
 module.exports =  router ;
