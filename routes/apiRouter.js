@@ -4,7 +4,8 @@ const router = express.Router();
  const UserRole =  require("./userRolesRouter");
  const user =  require("./user");
  const system = require("./systemobjectsRouter")
- const objectUser = require("./objectUserrolepPerRouter")
+ const objectUser = require("./objectUserrolepPerRouter");
+ const empidenti = require("./emoIdentifireRouter")
 
 
 
@@ -15,7 +16,8 @@ router.use("/emp",employee )
 router.use("/userrole", UserRole);
 router.use("/user", user);
 router.use("/system", system);
-router.use("/objectuser",objectUser)
+router.use("/objectuser",objectUser);
+router.use("/empidenti",empidenti);
 
 
 

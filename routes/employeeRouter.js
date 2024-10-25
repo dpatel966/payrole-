@@ -1,9 +1,89 @@
 const express = require('express');
-const { Employee, Document, errorHendlar } = require('../models'); 
+const { Employee, Document, errorHendlar ,Address} = require('../models'); 
 const ApiResponse = require('./utils/apiResponse');
 const moment = require('moment');
 const router = express.Router();
 const path = require("path");
+
+
+
+router.post("/savea", async (req, res) => {
+    try {
+        const {
+            emp_id,
+            emp_first_name,
+            emp_middle_name,
+            emp_last_name,
+            emp_salutation,
+            emp_dob,
+            emp_gender,
+            emp_type,
+            emp_contact_mobile_1,
+            emp_contact_mobile_2,
+            emp_contact_email,
+            emp_blood_group,
+            addresses 
+        } = req.body;
+
+        
+        let emp_cur_address_id = null;
+        let emp_perm_address_id = null;
+
+        if (addresses && Array.isArray(addresses)) {
+            for (let i = 0 ;i<addresses.length;i++) {
+                const add = addresses[i];
+                 console.log(add)
+                // const createdAddress = await Address.create({
+                //     address_id:add.address_id,
+                //     address_line_1: add.address_line_1,
+                //     address_line_2: add.address_line_2,
+                //     landmark: add.landmark,
+                //     city: add.city,
+                //     state: add.state,
+                //     country: add.country,
+                //     zipcode: add.zipcode,
+                //     address_type: add.address_type,
+                //     address_from_date: add.address_from_date,
+                //     address_to_date: add.address_to_date
+                // });
+
+                
+                if (add.address_type === 'C') {
+                    emp_cur_address_id = createdAddress.address_id;
+                } else if (add.address_type === 'P') {
+                    emp_perm_address_id = createdAddress.address_id;
+                }
+            }
+        }
+
+        
+        const employee = await Employee.create({
+            emp_id,
+            emp_first_name,
+            emp_middle_name,
+            emp_last_name,
+            emp_salutation,
+            emp_dob,
+            emp_gender,
+            emp_type,
+            emp_contact_mobile_1,
+            emp_contact_mobile_2,
+            emp_contact_email,
+            emp_blood_group,
+            emp_cur_address_id, 
+            emp_perm_address_id 
+        });
+
+        res.status(201).json(new ApiResponse(true, employee, "Employee data saved successfully"));
+    } catch (err) {
+        console.error(err);
+        const error = errorHendlar(err);
+        res.status(500).json(new ApiResponse(false, error, "Employee data not saved"));
+    }
+});
+
+module.exports = router;
+
 
 router.post('/save', async (req, res) => {
     const {
@@ -57,7 +137,7 @@ router.post('/save', async (req, res) => {
 
 
     const documentKeys = [
-        'emp_aadhar_doc_id',
+        'emp_aadhar_doc',
         'emp_pan_doc_id',
         'emp_uan_doc_id',
         'emp_esic_doc_id',
@@ -76,14 +156,14 @@ router.post('/save', async (req, res) => {
             await docImage.mv(filePath);
              const doc_id =  a
              
-            // Insert document record into the database
+            
             const document = await Document.create({
                 doc_id,
                 doc_image_file_name: fileName,
                 doc_upload_date: moment().format('YYYY-MM-DD')
             });
             
-            // Store the document ID
+        
             documentIds.push(document.doc_id);
         }
         a++

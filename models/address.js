@@ -10,6 +10,7 @@ module.exports = (sequelize, DataTypes)=>{
 
         address_id:{
             type:DataTypes.INTEGER,
+            primaryKey:true
         },
         address_line_1:{
             type:DataTypes.STRING,
